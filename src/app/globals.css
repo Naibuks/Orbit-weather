@@ -181,6 +181,16 @@ img {
   43%, 45% { opacity: 0.75; }
 }
 
+.safe-bottom {
+  padding-bottom: max(5.5rem, calc(env(safe-area-inset-bottom) + 4.5rem));
+}
+
+@media (min-width: 1024px) {
+  .safe-bottom {
+    padding-bottom: 1rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

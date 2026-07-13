@@ -44,11 +44,21 @@ export function Sidebar({
   return (
     <AnimatePresence>
       {open ? (
+        <>
+        <motion.button
+          type="button"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+          aria-label="Close navigation drawer"
+        />
         <motion.aside
           initial={{ x: -18, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -18, opacity: 0 }}
-          className="fixed inset-y-0 left-0 z-50 w-[86vw] max-w-xs border-r border-white/10 bg-slate-950/85 p-4 text-white shadow-2xl backdrop-blur-xl lg:hidden"
+          className="fixed inset-y-0 left-0 z-50 flex w-[min(86vw,20rem)] flex-col overflow-y-auto border-r border-white/10 bg-slate-950/90 p-4 text-white shadow-2xl backdrop-blur-xl lg:hidden"
         >
           <div className="mb-6 flex items-center justify-between">
             <div>
@@ -130,6 +140,7 @@ export function Sidebar({
             </section>
           </div>
         </motion.aside>
+        </>
       ) : null}
     </AnimatePresence>
   );

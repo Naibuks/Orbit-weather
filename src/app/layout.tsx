@@ -12,6 +12,12 @@ export const metadata: Metadata = {
   description: "Premium weather dashboard with geolocation, forecasts, saved cities and custom settings.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -238,14 +238,14 @@ export function OrbitDashboard() {
   };
 
   return (
-    <div className={`weather-shell ${backgroundClass} min-h-screen text-slate-950 transition-all duration-700 dark:text-white`}>
-      <div className="weather-cloud weather-cloudy left-[8%] top-[16%] h-20 w-40" />
-      <div className="weather-cloud weather-cloudy right-[6%] top-[18%] h-16 w-32" />
+    <div className={`weather-shell ${backgroundClass} min-h-screen overflow-x-hidden text-slate-950 transition-all duration-700 dark:text-white`}>
+      <div className="weather-cloud weather-cloudy left-[8%] top-[16%] hidden h-20 w-40 sm:block" />
+      <div className="weather-cloud weather-cloudy right-[6%] top-[18%] hidden h-16 w-32 sm:block" />
       {weatherKey === "rain" ? <div className="weather-rain-layer" /> : null}
       {weatherKey === "snow" ? <div className="weather-snow-layer" /> : null}
       {weatherKey === "thunderstorm" ? <div className="weather-storm-flash" /> : null}
 
-      <div className="relative mx-auto max-w-7xl px-4 py-4 md:px-6 lg:px-8">
+      <div className="safe-bottom relative mx-auto max-w-7xl px-3 py-3 sm:px-4 sm:py-4 md:px-6 lg:px-8">
         <div className="grid gap-4 lg:grid-cols-[240px_minmax(0,1fr)]">
           <aside className="hidden rounded-[24px] border border-white/10 bg-black/35 p-4 text-white shadow-[0_20px_70px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl lg:block">
             <div className="mb-7"> 
@@ -293,28 +293,28 @@ export function OrbitDashboard() {
           </aside>
 
           <div className="space-y-4">
-            <header className="flex items-center justify-between rounded-[24px] border border-white/10 bg-black/35 px-4 py-4 text-white shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl">
-              <div className="flex items-center gap-3">
+            <header className="flex flex-col gap-3 rounded-[24px] border border-white/10 bg-black/35 px-3 py-3 text-white shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between sm:px-4 sm:py-4">
+              <div className="flex min-w-0 items-center gap-3">
                 <button
                   type="button"
                   onClick={() => setSidebarOpen(true)}
-                  className="rounded-2xl border border-white/10 bg-white/10 p-2 lg:hidden"
+                  className="shrink-0 rounded-2xl border border-white/10 bg-white/10 p-2 lg:hidden"
                   aria-label="Open navigation"
                 >
                   <Menu size={18} />
                 </button>
-                <div>
+                <div className="min-w-0">
                   <p className="text-xs uppercase tracking-[0.34em] text-slate-400">Updating...</p>
-                  <div className="mt-1 flex items-center gap-2">
+                  <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5">
                     <span className="text-sm text-slate-300">{headerGreeting}</span>
-                    <span className="text-slate-500">•</span>
-                    <span className="text-sm font-medium text-white">{dateLabel}</span>
+                    <span className="hidden text-slate-500 sm:inline">•</span>
+                    <span className="truncate text-sm font-medium text-white">{dateLabel}</span>
                   </div>
                 </div>
               </div>
-              <div className="text-right">
+              <div className="shrink-0 sm:text-right">
                 <p className="text-xs uppercase tracking-[0.4em] text-cyan-300">Live clock</p>
-                <p className="text-sm font-medium">{clockLabel}</p>
+                <p className="text-sm font-medium tabular-nums">{clockLabel}</p>
               </div>
             </header>
 
@@ -324,8 +324,8 @@ export function OrbitDashboard() {
               animate={reduceMotion ? undefined : { y: 0, opacity: 1 }}
               className="rounded-[24px] border border-white/10 bg-black/30 p-4 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl md:p-5"
             >
-              <form onSubmit={handleSubmit} className="grid gap-3 md:grid-cols-[1fr_auto_auto]">
-                <label className="flex items-center gap-3 rounded-2xl bg-slate-950/45 px-4 py-3 text-white shadow-lg">
+              <form onSubmit={handleSubmit} className="grid gap-3 sm:grid-cols-2 md:grid-cols-[1fr_auto_auto]">
+                <label className="flex items-center gap-3 rounded-2xl bg-slate-950/45 px-4 py-3 text-white shadow-lg sm:col-span-2 md:col-span-1">
                   <Search size={18} className="text-cyan-300" />
                   <input
                     aria-label="Search any city worldwide"
@@ -338,7 +338,7 @@ export function OrbitDashboard() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="flex items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-4 py-3 font-medium text-slate-950 transition hover:bg-cyan-300 disabled:opacity-70"
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-4 py-3 font-medium text-slate-950 transition hover:bg-cyan-300 disabled:opacity-70 sm:w-auto"
                 >
                   {isLoading ? <LoaderCircle className="animate-spin" size={18} /> : <Search size={18} />}
                   Search
@@ -346,7 +346,7 @@ export function OrbitDashboard() {
                 <button
                   type="button"
                   onClick={handleSearchByCoordinates}
-                  className="flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-medium text-white"
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-medium text-white sm:col-span-2 sm:w-auto md:col-span-1"
                 >
                   <LocateFixed size={18} />
                   Current Location
@@ -374,25 +374,25 @@ export function OrbitDashboard() {
                 className="grid gap-4 rounded-[24px] border border-white/10 bg-black/35 p-4 text-white shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl md:grid-cols-[1.35fr_0.65fr] md:p-5"
               >
                 <div className="flex flex-col gap-4">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-sm text-slate-300">{currentWeather.name}, {currentWeather.sys.country}</p>
-                      <div className="mt-2 flex items-center gap-3">
-                        <div className="weather-icon-wrap rounded-[20px] bg-white/8 p-3 shadow-[0_16px_40px_-24px_rgba(0,0,0,0.95)]">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm text-slate-300">{currentWeather.name}, {currentWeather.sys.country}</p>
+                      <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center">
+                        <div className="weather-icon-wrap w-fit shrink-0 rounded-[20px] bg-white/8 p-2 shadow-[0_16px_40px_-24px_rgba(0,0,0,0.95)] sm:p-3">
                           <Image
                             src={getWeatherIconUrl(currentWeather.weather[0]?.icon ?? "01d")}
                             alt={currentWeather.weather[0]?.description ?? "Weather icon"}
                             width={76}
                             height={76}
-                            className="h-[76px] w-[76px]"
+                            className="h-14 w-14 sm:h-[76px] sm:w-[76px]"
                           />
                         </div>
-                        <div>
-                          <p className="text-[72px] font-semibold leading-none md:text-[88px]">
+                        <div className="min-w-0">
+                          <p className="text-5xl font-semibold leading-none sm:text-6xl md:text-[72px] lg:text-[88px]">
                             {formatTemperature(currentWeather.main.temp, settings.temperatureUnit)}
                           </p>
-                          <p className="mt-1 text-lg font-medium capitalize text-slate-200">{currentWeather.weather[0]?.description}</p>
-                          <p className="text-sm text-slate-300">
+                          <p className="mt-1 text-base font-medium capitalize text-slate-200 sm:text-lg">{currentWeather.weather[0]?.description}</p>
+                          <p className="text-xs text-slate-300 sm:text-sm">
                             High {formatTemperature(currentWeather.main.temp_max, settings.temperatureUnit)} · Low {formatTemperature(currentWeather.main.temp_min, settings.temperatureUnit)}
                           </p>
                         </div>
@@ -401,7 +401,7 @@ export function OrbitDashboard() {
                     <button
                       type="button"
                       onClick={() => savedCityPayload && toggleFavorite(savedCityPayload)}
-                      className="rounded-2xl border border-white/10 bg-white/10 p-3 text-cyan-100"
+                      className="shrink-0 rounded-2xl border border-white/10 bg-white/10 p-2.5 text-cyan-100 sm:p-3"
                       aria-label={isFavorite ? "Remove city from saved list" : "Save city"}
                     >
                       {isFavorite ? <HeartOff size={18} /> : <Heart size={18} />}
@@ -448,20 +448,20 @@ export function OrbitDashboard() {
 
             <section className="space-y-4">
               <div className="rounded-[24px] border border-white/10 bg-black/30 p-4 text-white shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl">
-                <div className="mb-3 flex items-center justify-between">
+                <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
                   <div>
                     <p className="text-xs uppercase tracking-[0.24em] text-cyan-300">Hourly forecast</p>
-                    <h4 className="text-lg font-semibold">Next 8 hours</h4>
+                    <h4 className="text-base font-semibold sm:text-lg">Next 8 hours</h4>
                   </div>
                   <span className="rounded-full bg-cyan-400/15 px-3 py-1 text-[10px] uppercase tracking-[0.28em] text-cyan-100">Live</span>
                 </div>
-                <div className="flex gap-3 overflow-x-auto pb-1">
+                <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:gap-3">
                   {forecastData.hourly.map((item) => {
                     const isCurrentHour = clock ? new Date(item.dt * 1000).getHours() === currentHour : false;
                     return (
                       <div
                         key={item.dt}
-                        className={`min-w-[96px] rounded-[18px] border px-3 py-3 text-center transition ${isCurrentHour ? "border-cyan-300/40 bg-cyan-400/18" : "border-white/6 bg-slate-950/45"}`}
+                        className={`min-w-[84px] shrink-0 rounded-[18px] border px-2.5 py-2.5 text-center transition sm:min-w-[96px] sm:px-3 sm:py-3 ${isCurrentHour ? "border-cyan-300/40 bg-cyan-400/18" : "border-white/6 bg-slate-950/45"}`}
                       >
                         <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-slate-300">
                           {isCurrentHour ? "Now" : formatTime(item.dt)}
@@ -482,14 +482,14 @@ export function OrbitDashboard() {
               </div>
 
               <div className="rounded-[24px] border border-white/10 bg-black/30 p-4 text-white shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl">
-                <div className="mb-3 flex items-center justify-between">
+                <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
                   <div>
                     <p className="text-xs uppercase tracking-[0.24em] text-cyan-300">5-day outlook</p>
-                    <h4 className="text-lg font-semibold">Weekly snapshot</h4>
+                    <h4 className="text-base font-semibold sm:text-lg">Weekly snapshot</h4>
                   </div>
                   <span className="rounded-full bg-white/8 px-3 py-1 text-[10px] uppercase tracking-[0.28em] text-slate-200">5 days</span>
                 </div>
-                <div className="grid gap-3 xl:grid-cols-5">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                   {forecastData.daily.map((day) => (
                     <div key={day.dateKey} className="min-h-[96px] rounded-[18px] border border-white/6 bg-slate-950/45 p-3">
                       <div className="flex items-center justify-between gap-2">
@@ -515,7 +515,7 @@ export function OrbitDashboard() {
             <section className="grid gap-4 lg:grid-cols-2">
               <div className="rounded-[24px] border border-white/10 bg-black/35 p-4 text-white shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl">
                 <p className="text-xs uppercase tracking-[0.24em] text-cyan-300">Weather details</p>
-                <div className="mt-3 grid grid-cols-2 gap-3">
+                <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                   {detailCards.map((card) => {
                     const Icon = card.icon;
                     return (
@@ -539,12 +539,12 @@ export function OrbitDashboard() {
                       <p className="text-sm text-slate-300">No saved cities yet. Use the heart button on the current card.</p>
                     ) : (
                       savedCities.map((city) => (
-                        <div key={city.id} className="flex items-center justify-between rounded-2xl bg-white/8 px-3 py-2">
-                          <button type="button" onClick={() => void loadFavoriteCity(city)} className="text-left">
-                            <p className="text-sm font-medium">{city.name}</p>
+                        <div key={city.id} className="flex flex-col gap-2 rounded-2xl bg-white/8 px-3 py-2 sm:flex-row sm:items-center sm:justify-between">
+                          <button type="button" onClick={() => void loadFavoriteCity(city)} className="min-w-0 text-left">
+                            <p className="truncate text-sm font-medium">{city.name}</p>
                             <p className="text-xs text-slate-300">{city.country}</p>
                           </button>
-                          <button type="button" onClick={() => removeFavorite(city.id)} className="rounded-full bg-white/10 p-2 text-sm">Remove</button>
+                          <button type="button" onClick={() => removeFavorite(city.id)} className="w-fit shrink-0 rounded-full bg-white/10 px-3 py-1.5 text-xs sm:text-sm">Remove</button>
                         </div>
                       ))
                     )}
@@ -609,7 +609,7 @@ export function OrbitDashboard() {
         </div>
       </div>
 
-      <nav className="fixed inset-x-0 bottom-0 z-40 mx-auto flex w-[min(92vw,480px)] items-center justify-between rounded-[22px] border border-white/10 bg-black/40 px-3 py-2 text-white shadow-[0_20px_70px_-40px_rgba(0,0,0,0.95)] backdrop-blur-xl lg:hidden">
+      <nav className="fixed inset-x-0 bottom-0 z-40 mx-auto flex w-full max-w-lg items-center justify-between border-t border-white/10 bg-black/50 px-2 py-2 text-white shadow-[0_20px_70px_-40px_rgba(0,0,0,0.95)] backdrop-blur-xl sm:inset-x-4 sm:bottom-3 sm:w-[min(92vw,480px)] sm:rounded-[22px] sm:border lg:hidden" style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}>
         {bottomNav.map((item) => {
           const Icon = item.icon;
           const active = activeView === item.key;
